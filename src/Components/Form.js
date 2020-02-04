@@ -15,9 +15,22 @@ const Form = props => {
   })
   const { name, address, city, house_state, zip, img, mortgage, rent } = state
   const handleChange = ({ name, value }) => setState({...state, [name]: value })
+  let inputs = []
+  for(let key in state){
+    inputs.push(
+      <input
+        name={key}
+        value={state[key]}
+        type="text"
+        placeholder={key}
+        onChange={e => handleChange(e.target)}
+      />
+    )
+  }
   return (
     <div>
-      <input
+      {inputs}
+      {/* <input
         name="name"
         value={name}
         type="text"
@@ -72,7 +85,7 @@ const Form = props => {
         type="number"
         placeholder="rent"
         onChange={e => handleChange(e.target)}
-      />
+      /> */}
       <button
       onClick ={() => {
         axios.post('/api/houses', state).then(() => {
